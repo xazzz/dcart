@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Test name="Business Test">
+
+    <Phrase name="Installation">
+
+    </Phrase>
+
+    <Phrase name="Preparing">
+
+        <Function name="Product Import">
+
+            <CaseCollection>
+                <Case>
+                    <Name>Get XML from upload URL</Name>
+                    <Description></Description>
+                    <StartDate></StartDate>
+                    <CloseDate></CloseDate>
+                    <Status></Status>
+                    <Summary></Summary>
+                    <IssueList>
+                        <Issue>
+                            <Name></Name>
+                            <Description></Description>
+                            <Status></Status>
+                            <StartDate></StartDate>
+                            <Fix>
+                                <Date></Date>
+                                <Status></Status>
+                                <Summary></Summary>
+                            </Fix>
+                        </Issue>
+                    </IssueList>
+                </Case>
+            </CaseCollection>
+
+        </Function>
+
+    </Phrase>
+
+    <Upload>
+
+    </Upload>
+
+    <ShoppingCart>
+
+    </ShoppingCart>
+
+    <Order>
+
+    </Order>
+
+    <PostOrder>
+
+    </PostOrder>
+
+</Test>

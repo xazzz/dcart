@@ -1,0 +1,69 @@
+Development
+=============
+
+I have been working on a project, this project is the first project that required high quality.
+
+This quality requirement really bring me some new thought. How to make the system with high quality? Or bug free? I really can't make sure of that, as this is a complex system, and I am starting it without any previous knowledge of what it looks like, I don't know about TEST at all, even though I did know something about programming, but being a programmer, I often think TEST is not my business, I test it roughly and never tried Test Case.
+
+I am learning Testing software, and tring to find a balance way for my ongoing works, here is my understanding of it.
+
+TDD? How to test
+================
+
+I have never known TDD before, from a interesting debate about TDD I start to think about it. The idea is interesting, TDD is a way to start developing the system from TEST CASE, from using Test Case, we will define the interface of each functionality. When we are working on some functionality, we define the interface of the function or module, and then the only thing we will do is to promise the module or function to adapt to the interface, whatever we input, it will gave us expected output. Almost all functions are based on this idea in computer software programming world. When we are trying to solve the problem, we defined the problem space, and then we will use program to solve it, all program will be consist of functions, and these functions are with IN/OUT interface.
+
+From this principle, the IN/OUT test case are applicable, after we did the test case, the only thing we should know that to promise the function is passed from the test case. From the design point, when we start to build a system, we actually design a system with multi-modules, whatever we describe the system, they all can be regarded as module. The module is not as same as function, they don't have strict IN/OUT limit, it could have different multi IN and different multi OUT, but for all of these possibility, there are only some of them will be selected for the user, commonly there are two of them, success or failure. Now the question is that is the TEST CASE are good for this?
+
+From the real project, when there are many modules, it's very difficult to handle the test. As one module could have many possibilities, so even there is only one IN, there could be a lot OUTs, and the problem is that these OUTs could be happened inside the module. When there are many branches in this TEST tree, it's not easy to control it and handle it. Usually I felt like that I used up my brain the track all of them. <We certainly need some way to trace it, the best and vivid method is to use chart>
+
+The TDD seems not work for all system test? Even so, TDD is a good way to organize the code in programming, if we have clear interface for all function we are working on, then we can use TDD for the best performance.
+
+From my experience, the real project will not be well designed at the beginning, the requirement will not be clear from the beginning too unless its really a simple one, changes always happened. Sometimes these changes will bring a lot changes to the source, this time, we are not only dealing with new feature or improvement, we also have to change test case too, that will double the work hour, and it's not always happy for project manager as more work hour means more cost, so it's not accepted by programmers too.
+
+To balance the work hour and software quality, I think we could still use TDD too, but in a different way. We probably don't have time to write all these test case sometimes, and we can use TEXT to describe this interface, and whats the INPUT, and whats the expected OUTPUT, and how to handle error. After we finished this function, we will star to write some test case just for temporary use to test this function. If it's passed and we will mark it as "complete", go for the next one. To write test case in TEXT is not as same as function specification, even though it's very similar, but it's from different viewpoint, and that will bring programmer to different road, let me explain more, when you get a function spec, what you will do, is to make a function for it, you probably will use some test to know its working well, and then deliver it. You don't have the intention to test it from this spec, and that's different from test case spec, when you are dealing with test case spec, you know what you will do next, test your function based on it.
+
+Commonly when you finished a module, and its a independent business module, you will not only have to test it in TEST CASE, but also test it from users respect. Actually sometimes we think TEST is automate stuff, then it's not all correct. What the system will behave, and what system is in the expectation of the project, its all about people related to this project. The first one is the project sponsor, and we can call them "clients", then for the system, we will have different user, some of them could be "clients", some of them could be "customer" or else. Next, we will have product manager, he will define the product perspective, and in the project, he is the one who will define the product and vote to deliver it.
+
+To make the system to be accepted and delivered, we will have to test the system from all of their perspective.
+
+    Client : business workflow
+    User :
+        Customer : business workflow for customer
+        Admin : business workflow for admin
+        Printer : business workflow for printer
+
+    Product manager : what the product looks like, how it is running
+    Project manager : functionality, performance, secure
+    Quality assurance engineer :
+
+
+How to describe TEST CASE
+=========================
+
+To describe the test case, is a simple way to do test case, as writing a test really cost time. I think I need test case, to balance the test and work hour (productivity), I will describe test case instead. To test the system, we will have many perspective, from different audience. The system is like a play, and there are some actors in it, all these actors are in the play and part of the role, and we will think of the test from their perspective. (UML use actors too, but it's different).
+
+Whatever the test case is, first we will define a format for all test case, and this file could be an XML format, that's nature way. One IN, and One OUT, during it, it will have many branches. To write an XML is a bit difficult and time-consuming, also it's not good readable. So I will write them in plain text, just make them structured, and organizable.
+
+@Note :attribute:
+@Note:: content
+@Name::
+@Description::
+
+To understand the test case process better, as long as the test case will be a long list, so from this test case, we will get different case, and we will get different functionality, also different bug, different fix. Sometimes we found that we will have to add a new feature, we will add it as new issue too.
+
+Quality Management
+===================
+
+The idea of quality management is an inspiration. A simple tip is that : fitness of the design, conformity to specification, satisfying customer needs. This idea simply can be applied to software industry. But there is no such process that I have known for Quality management in software industry. From wiki, we know that the basic goal of the software quality is :
+
+Reliability: An attribute of resiliency and structural solidity. Reliability measures the level of risk and the likelihood of potential application failures. It also measures the defects injected due to modifications made to the software (its “stability” as termed by ISO). The goal for checking and monitoring Reliability is to reduce and prevent application downtime, application outages and errors that directly affect users, and enhance the image of IT and its impact on a company’s business performance.
+
+Efficiency: The source code and software architecture attributes are the elements that ensure high performance once the application is in run-time mode. Efficiency is especially important for applications in high execution speed environments such as algorithmic or transactional processing where performance and scalability are paramount. An analysis of source code efficiency and scalability provides a clear picture of the latent business risks and the harm they can cause to customer satisfaction due to response-time degradation.
+
+Security: A measure of the likelihood of potential security breaches due to poor coding practices and architecture. This quantifies the risk of encountering critical vulnerabilities that damage the business.
+
+Maintainability: Maintainability includes the notion of adaptability, portability and transferability (from one development team to another). Measuring and monitoring maintainability is a must for mission-critical applications where change is driven by tight time-to-market schedules and where it is important for IT to remain responsive to business-driven changes. It is also essential to keep maintenance costs under control.
+
+Size: While not a quality attribute per se, the sizing of source code is a software characteristic that obviously impacts maintainability. Combined with the above quality characteristics, software size can be used to assess the amount of work produced and to be done by teams, as well as their productivity through correlation with time-sheet data, and other SDLC-related metrics.
+
+These metrics are reasonable, for a programmer, what I have focused on is "reliability & performance & security & maintainability", reliability is the first of all basic standards of it, when the software is delivered, this software should be bug free and less failure as possible as it can be. Maintainability actually much more important than any others for a large project, if it's not maintainable, then this project will be really a disaster for the project sponsor, as any new feature or improvement, it will cost a lot time and money for it. Until it's not maintainable anymore, this software is finally .... to write a maintainable software is not that easy, that involved a lot techniques, we often say that we are going to write better code. Security is more important than performance, from some point, if the software is not secure, then it's not reliable. Performance is to be the last one to consider about, even so, we should know that from the beginning of the development, we should choose better solution for it, as long as the software is nearly close, we may have to start it over to increase its performance.
