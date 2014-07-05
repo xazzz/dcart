@@ -4,13 +4,16 @@ System Design
 I want to write a better app framework, and from this framework, we can extend it easily.
 
 The idea is inspired from Unix-alike operationg system especially OSX.
-To treat different module as <Process>,
-and for each of them it will consist of <Command> and <Service>,
-that's <Process> is an app in the file system in its own storage container.
+To build a extensible web app framework, all components should be extensible.
 
-It could be a distributed unit for future development,
-and by exchanging data from each other efficiently,
-the same level app will be running parallel in different <Node>
+The web app will be buit on different module.
+To think about module as a type of <Process>.
+To think about each <Process> will consist of <Command> and <Service>.
+<Command> is an app for user.
+<Service> is an app for <Command>.
+And <Process> in the file system will have its own storage container.
+
+Features in plan:
 
     Install & Uninstall : will be installed and uninstalled cleanly from storage system
 
@@ -22,10 +25,9 @@ the same level app will be running parallel in different <Node>
 
         the installer of <Process> will be called when its installed
         the uninstaller of <Process> will be called when its uninstalled
-        the app list will be built and updated everytime one is installed...
-        the app list will be build and updated
+        the app list will be built and updated
 
-        to maintain the app list in the system, and install one of them or uninstall one of them
+        the app list could be saved in a data center, for example :
 
             database == application ==
                 Id
@@ -38,7 +40,8 @@ the same level app will be running parallel in different <Node>
                 md5 (of app zip bundle)
                 date
 
-            the core database will be in sqlite...
+            the core database will not rely on database server
+            so the core database is portable
 
     Update it : will be updated if the new <Process> is updated from some source
 
@@ -58,7 +61,6 @@ the same level app will be running parallel in different <Node>
         will add all resources in app folder
         will be static files only
         will have container ID
-
 
     Extend it :
 
@@ -89,11 +91,45 @@ the same level app will be running parallel in different <Node>
 
             chain to injected object
 
-
     Communication :
 
+        Command :
+
+            router : user | Command | Service
+
+                router is HTTP/METHOD based block
+                router could return Web page for users
+                router could return binary-json for Command | Service
+
+            queue : Command | Service
+
+                action queue : one action could be injected into Command | Service
+                message queue : one message could be broadcast to all in queue
+
+        Service :
+
+            router : Command | Service
+            queue : Command | Service
 
 
+Why & Purpose
+
+    Why extensible? Think about all this good open source system...
+    If you want some code to inject into the workflow...
+
+    The web app is consisted of workflow, one or many...
+    The e-commercial software has clear workflow...
+
+    Extensible, means every part of workflow is extensible..
+    Extensible, means every addon will not break other addon..
+
+    Replace | Extend <Add | Remove> | Coordinate <No chaos>
+    Notify extension about changes, so it will tell support or not...
+
+    Extension A ==> Replaced Function B
+    Extension B ==> Rely on Function B
+
+    Extension B ==> get notified <== Function B replaced
 
 
 
