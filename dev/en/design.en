@@ -114,8 +114,16 @@ Features in plan:
 
 Why & Purpose
 
-    Why extensible? Think about all this good open source system...
+    Why extensible? Think about all these good open source system...
     If you want some code to inject into the workflow...
+
+    workflow ==
+
+        action A ==> action B ==> action C ==> ...
+        data A ==> data B ==> no data ==> ....
+
+        it will be action chain
+        it will be data changes chain
 
     The web app is consisted of workflow, one or many...
     The e-commercial software has clear workflow...
@@ -131,7 +139,7 @@ Why & Purpose
 
     Extension B ==> get notified <== Function B replaced
 
-    
+
 
 =========================== e-commercial web app workflow =================================
 
