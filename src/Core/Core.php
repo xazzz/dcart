@@ -4,13 +4,17 @@ namespace Core;
 
 use Core\Queue;
 
-class Core {
+class Core
+{
 
-    protected $extensionQueue;
     protected $serviceQueue;
     protected $commandQueue;
 
-    protected $_queue;
+    protected $queue;
+    protected $dbAdapterCollection;
+
+    protected $app;
+    protected $config;
 
     public static function getInstance()
     {
@@ -21,49 +25,61 @@ class Core {
         return $instance;
     }
 
-    private function __construct ()
+    private function __construct()
     {
-        $this->_queue = Queue::getInstance();
+        $this->queue = Queue::getInstance();
 
-        $this->commandQueue = $this->_queue->getQueue("command");
-        $this->serviceQueue = $this->_queue->getQueue("service");
+        $this->commandQueue = $this->queue->getQueue("core_command");
+        $this->serviceQueue = $this->queue->getQueue("core_service");
+
+        $this->dbAdapterCollection = array ();
 
     }
 
-    public function register ($type, $data)
+    // register command routers
+    // after all registered
+
+    public function register($app, $config)
     {
-
-        if ($type == "command") {
-
-            // queue['command_id'] = $command_handler;
-
+        foreach ($this->commandQueue as $command) {
+            $command->entry($app, $config);
         }
 
-        if ($type == "service") {
+    }
 
+    public function addCommands ($commandArray)
+    {
+
+        $this->commandQueue = array_merge($this->commandQueue, $commandArray);
+
+    }
+
+    //====================================
+    // will save database connection here
+    //====================================
+
+    use Silex;
+
+    public function bootstrap ($app, $config)
+    {
+
+        $this->app = $app;
+        $this->config = $config;
+
+        $app->register(new Silex\Provider\DoctrineServiceProvider(), $config["db"]);
+
+        foreach ($config["db"]["db.options"] as $key => $value) {
+            $this->dbAdapterCollection["db." . $key] = $this->app['dbs'][$key];
         }
     }
 
-    public function getProcess ($type, $id)
+    public function getDbAdapter ($id)
     {
-        if ($type == "command") {
-
+        if (array_key_exists($id, $this->dbAdapterCollection)) {
+            return $this->dbAdapterCollection[$id];
         }
 
-        if ($type == "service") {
-
-        }
-    }
-
-    public function runProcess ($type)
-    {
-        if ($type == "command") {
-
-        }
-
-        if ($type == "service") {
-
-        }
+        return null;
     }
 
 

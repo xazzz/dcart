@@ -1,102 +1,43 @@
 <?php
 
-// How to use it to build website?
-// How to use it to build REST API?
-
-// routers ==> predefined
-// initialize routers ==> Controller <==> Model <==> View
-
-//
 
 require_once (__DIR__ . "/../vendor/autoload.php");
-
 $app = new Silex\Application();
 
-// handling errors
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-$app->error(function (\Exception $e, $code) use ($app) {
-
-    $message = $app->escape($e->getMessage());
-
-    switch ($code) {
-        case 404:
-            $message = "404 : " . $message;
-            break;
-        case 500:
-            $message = "500 : " . $message;
-        default:
-            $message = 'Unknow : ' . $message;
-    }
-
-    $error = array(
-        "status" => "failure",
-        "message" => $message
-    );
-
-    if ($code > 500) {
-        $code = 500;
-    }
-
-    return $app->json($error, $code);
-});
-
-// define global value for app
-
+//
 $os = php_uname();
 
 if (strtolower(substr($os, 0, 3)) == "dar") {
-    require_once(__DIR__ . "/config-test.php");
+    require_once(__DIR__ . "/config/config.test.php");
 } else {
-    require_once(__DIR__ . "/config.php");
+    require_once(__DIR__ . "/config/config.php");
 }
 
-$app["debug"] = $config["debug"];
-$app['upload.image.host'] = $config["upload.image.host"];
-$app['upload.folder'] = $config["upload.folder"];
-$app['upload.folder.image'] = $config["upload.folder.image"];
+//==============================
+//
+//==============================
 
-$app->register(new Silex\Provider\DoctrineServiceProvider(), $config["db"]);
-$app->register(new Silex\Provider\HttpCacheServiceProvider(), $config["cache"]);
+require_once(__DIR__ . "/core/command.list.php");
+require_once(__DIR__ . "/core/service.list.php");
+require_once(__DIR__ . "/core/error.handler.php");
 
-// modules ==> controller ==> model
-// how to define modules ?
+use Core\Core;
 
-$basename = $config["basename"];
-$api_v1 = $config["router_api_v1"];
-
-//==================================
-// test case
-//==================================
-
-// tests are here, but not right place I think
-
-$test = $app["controllers_factory"];
-
-use Core\Process;
-use Core\Command;
-
-$test->get ("core/process", function () use ($app) {
-
-    $process = new Core\Process();
-
-    $process->pid = uniqid (mt_rand());
-
-    print_r ($process);
-
-    $command = new Command();
-
-    print_r ($command);
-
-    exit;
-
-});
-
-$app->mount($basename . "/testcase/", $test);
+$core = Core::getInstance();
+$core->register($app, $config);
+$core->bootstrap($app, $config);
 
 
-$app->run();
+// running the app
+
+use Silex\Provider\HttpCacheServiceProvider;
+if ($config["http_cache_enable"]) {
+
+    $app->register(new HttpCacheServiceProvider(), $config["http_cache"]);
+    $app["http_cache"]->run();
+
+} else {
+    $app->run();
+}
 
 

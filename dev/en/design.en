@@ -6,22 +6,23 @@ I want to write a better app framework, and from this framework, we can extend i
 The idea is inspired from Unix-alike operationg system especially OSX.
 To build a extensible web app framework, all components should be extensible.
 
-The web app will be buit on different module.
-To think about module as a type of <Process>.
-To think about each <Process> will consist of <Command> and <Service>.
-<Command> is an app for user.
-<Service> is an app for <Command>.
-And <Process> in the file system will have its own storage container.
+The whole system should be built on app/module
+To treat app/module as a type of <Process>.
+Each <Process> is consist of <Command> and <Service>.
+<Command> is similar to the idea of console app or desktop app,
+<Service> is similar to the idea of service..
 
-Features in plan:
+Each <Process> will have its own zone : including storage & data source
+
+Features :
 
     Install & Uninstall : will be installed and uninstalled cleanly from storage system
 
-        copy and paste to one place
+        copy and paste to the file system, and it's belong to different space
 
-            system : system for the core of the system, in system space
-            user : the code is from user, in user space
-            vendor : the third part code, in vendor space
+            system : system app collection
+            user : user app collection
+            vendor : vendor app collection
 
         the installer of <Process> will be called when its installed
         the uninstaller of <Process> will be called when its uninstalled

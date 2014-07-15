@@ -16,15 +16,6 @@ class Dashboard extends Command implements ICommand {
         // register command to core queue
         // so others can access it
 
-        $this->register (array (
-            "node_uuid" => $app["node_uuid"],
-            "pid" => "system_dashboard"
-        ));
-
-        // all routers will be here
-
-
-        //
 
     }
 

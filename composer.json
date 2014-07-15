@@ -55,7 +55,8 @@
     "autoload": {
         "psr-0": {
             "Silex": "src/",
-            "Core": "src/"
+            "Core": "src/",
+            "Process": "src/"
         }
     },
     "extra": {

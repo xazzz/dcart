@@ -21,12 +21,12 @@ use Core\Process;
 class Command extends Process {
 
     protected $owner;
-    protected $_core;
+    protected $core;
 
     public function register ($config)
     {
 
-        $this->_core = Core::getInstance();
+        $this->core = Core::getInstance();
 
         if (is_array ($config)) {
 
@@ -36,7 +36,7 @@ class Command extends Process {
 
             }
 
-            $this->_core->register("", "");
+            $this->core->register("", "");
 
             return true;
         }
@@ -50,7 +50,7 @@ class Command extends Process {
 
     public function getService ($serviceId)
     {
-        return $this->_core->getService ($serviceId);
+        return $this->core->getService ($serviceId);
     }
 
 
