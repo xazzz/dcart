@@ -23,7 +23,7 @@ require_once(__DIR__ . "/core/error.handler.php");
 
 use Core\Core;
 
-$core = Core::getInstance();
+$core = $core || Core::getInstance();
 $core->register($app, $config);
 $core->bootstrap($app, $config);
 
