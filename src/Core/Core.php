@@ -54,6 +54,11 @@ class Core
 
     }
 
+    public function newQueue ($identifier)
+    {
+        return $this->queue->newQueue($identifier);
+    }
+
     //====================================
     // will save database connection here
     //====================================

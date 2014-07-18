@@ -26,6 +26,15 @@ class Queue {
         return $instance;
     }
 
+    public function newQueue ($type)
+    {
+        if (array_key_exists($type, $this->_data)) {
+            return false;
+        }
+
+        return $this->_data[$type] = array ();
+    }
+
     public function getQueue ($type)
     {
         if (!array_key_exists($type, $this->_data)) {
@@ -34,6 +43,5 @@ class Queue {
 
         return $this->_data[$type];
     }
-
 
 }

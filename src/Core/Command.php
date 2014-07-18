@@ -18,40 +18,72 @@ use Core\Process;
 // the Command A exists, and can call its register methods too
 //
 
-class Command extends Process {
+class Command extends Process
+{
 
-    protected $owner;
-    protected $core;
+    protected $_author;
+    protected $_version;
+    protected $_certificate;
+    protected $_lastUpdateTime;
 
-    public function register ($config)
+    protected $_id;
+    protected $_startTime;
+    protected $_terminateTime;
+
+    protected static $_core;
+    protected static $_actionQueue;
+    protected static $_dataflowQueue;
+    protected static $_messageQueue;
+
+    // @id: command._id . __FUNCTION__
+    // @callback: array ("caller"=>, "method"=>)
+
+    public function registerAction($action, $id, $callback)
+    {
+        self::$_actionQueue[$action][$id] = $callback;
+    }
+
+    public function unregisterAction($action, $id, $callback = null)
+    {
+        if (isset (self::$_actionQueue[$action][$id])) {
+            unset (self::$_actionQueue[$action][$id]);
+        }
+    }
+
+    public function getActionQueue($action)
     {
 
-        $this->core = Core::getInstance();
-
-        if (is_array ($config)) {
-
-            foreach ($config as $key => $value) {
-
-                $this->$key = $value;
-
-            }
-
-            $this->core->register("", "");
-
-            return true;
+        if (isset (self::$_actionQueue[$action]) && is_array(self::$_actionQueue[$action])) {
+            return self::$_actionQueue[$action];
         }
 
-        return false;
+        return array();
+
     }
 
-    // here we will get service and from the service
-    // it can call all open API
+    //
 
-
-    public function getService ($serviceId)
+    public function registerDataflow($action, $id, $callback)
     {
-        return $this->core->getService ($serviceId);
+        self::$_dataflowQueue[$action][$id] = $callback;
     }
 
+    public function unregisterDataflow($action, $id, $callback = null)
+    {
+        if (isset (self::$_dataflowQueue[$action][$id])) {
+            unset (self::$_dataflowQueue[$action][$id]);
+        }
+    }
+
+    public function getDataflowQueue($action)
+    {
+
+        if (isset (self::$_dataflowQueue[$action]) && is_array($this->_dataflowQueue[$action])) {
+            return self::$_dataflowQueue[$action];
+        }
+
+        return array();
+
+    }
 
 }
