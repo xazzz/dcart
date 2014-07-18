@@ -7,14 +7,14 @@ use Core\Queue;
 class Core
 {
 
-    protected $serviceQueue;
-    protected $commandQueue;
+    private $serviceQueue;
+    private $commandQueue;
 
-    protected $queue;
-    protected $dbAdapterCollection;
+    private $queue;
+    private $dbAdapterCollection;
 
-    protected $app;
-    protected $config;
+    private $app;
+    private $config;
 
     public static function getInstance()
     {
