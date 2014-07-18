@@ -18,7 +18,7 @@ class Controller extends Command {
         "data" => array (),
     );
 
-    public function setSuccess ($message="", $data=array())
+    public function _setSuccess ($message="", $data=array())
     {
         $this->result["error"] = 0;
         $this->result["message"] = $message;
@@ -27,7 +27,7 @@ class Controller extends Command {
         return true;
     }
 
-    public function setFailed ($message="", $data=array())
+    public function _setFailed ($message="", $data=array())
     {
         $this->result["error"] = 1;
         $this->result["message"] = $message;

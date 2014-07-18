@@ -10,7 +10,7 @@ use Process\User;
 
 $commandArray = array (
 
-    $system_dashboard_command = new System\Dashboard\Command\Base\Dashboard(),
+    $system_dashboard_command = new System\Dashboard\Command\Base\Base(),
 
 );
 
