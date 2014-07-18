@@ -9,12 +9,15 @@ class Core
 
     private $serviceQueue;
     private $commandQueue;
-
     private $queue;
-    private $dbAdapterCollection;
 
-    private $app;
-    private $config;
+    //
+    // don't be afraid of public, yes protected is better
+    // but we are human, so we know how to do with it, right?
+    //
+    public $app;
+    public $config;
+    public $dbAdapterCollection;
 
     public static function getInstance()
     {
@@ -32,12 +35,21 @@ class Core
         $this->commandQueue = $this->queue->getQueue("core_command");
         $this->serviceQueue = $this->queue->getQueue("core_service");
 
-        $this->dbAdapterCollection = array ();
-
+        $this->dbAdapterCollection = array();
     }
 
-    // register command routers
-    // after all registered
+    //
+    // initialize a new queue
+    //
+
+    public function newQueue($id)
+    {
+        return $this->queue->newQueue($id);
+    }
+
+    //
+    // basically it will load command, for each of them create routers
+    //
 
     public function register($app, $config)
     {
@@ -47,45 +59,42 @@ class Core
 
     }
 
-    public function addCommands ($commandArray)
+    //
+    // we used one command queue for all commands in the system
+    //
+
+    public function addCommands($commandArray)
     {
 
         $this->commandQueue = array_merge($this->commandQueue, $commandArray);
-
     }
 
-    public function newQueue ($identifier)
-    {
-        return $this->queue->newQueue($identifier);
-    }
 
-    //====================================
-    // will save database connection here
-    //====================================
+    //
+    // now we move all database adapter to core
+    // here we used public dbAdapterCollection, could be a bit quicker?
+    // To note that, we will use different database source, at least, we will use
+    // sqlite, and mysql mostly
+    //
 
     use Silex;
 
-    public function bootstrap ($app, $config)
+    public function bootstrap($app, $config)
     {
 
         $this->app = $app;
         $this->config = $config;
 
-        $app->register(new Silex\Provider\DoctrineServiceProvider(), $config["db"]);
+        if (isset($config["db"])) {
 
-        foreach ($config["db"]["db.options"] as $key => $value) {
-            $this->dbAdapterCollection["db." . $key] = $this->app['dbs'][$key];
+            $app->register(new Silex\Provider\DoctrineServiceProvider(), $config["db"]);
+
+            foreach ($config["db"]["db.options"] as $key => $value) {
+                $this->dbAdapterCollection["db." . $key] = $this->app['dbs'][$key];
+            }
         }
     }
 
-    public function getDbAdapter ($id)
-    {
-        if (array_key_exists($id, $this->dbAdapterCollection)) {
-            return $this->dbAdapterCollection[$id];
-        }
-
-        return null;
-    }
 
 
 }

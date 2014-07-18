@@ -1,8 +1,10 @@
 <?php
 namespace Core\MVC;
+
+use Core\Command;
 use Core\Core;
 
-class Model {
+class Model extends Command {
 
     protected $table;
 

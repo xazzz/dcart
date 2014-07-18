@@ -5,10 +5,10 @@ namespace Core;
 class Queue {
 
     private $_data = array ();
-
     protected $_error = array (
-        "status" => "success",
-        "message" => ""
+        "error" => 0,
+        "message" => "",
+        "data" => array(),
     );
 
     private function __construct()
@@ -26,22 +26,28 @@ class Queue {
         return $instance;
     }
 
-    public function newQueue ($type)
+    //
+    // to initialize a new queue, and if it exist, will return false
+    //
+    public function newQueue ($id)
     {
-        if (array_key_exists($type, $this->_data)) {
+        if (isset($this->_data[$id])) {
             return false;
         }
 
-        return $this->_data[$type] = array ();
+        return $this->_data[$id] = array ();
     }
 
-    public function getQueue ($type)
+    //
+    // to get a queue, if its exists, or a new queue
+    //
+    public function getQueue ($id)
     {
-        if (!array_key_exists($type, $this->_data)) {
-            $this->_data[$type] = array ();
+        if (!isset($this->_data[$id])) {
+            $this->_data[$id] = array ();
         }
 
-        return $this->_data[$type];
+        return $this->_data[$id];
     }
 
 }
