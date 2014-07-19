@@ -32,3 +32,7 @@ $config["twig_cache_enable"] = true;
 // upload
 
 $config["debug"] = false;
+$config["basename"] = "dcart";
+$config["process_system_prefix"] = "system";
+$config["process_user_prefix"] = "user";
+$config["process_vendor_prefix"] = "vendor";
