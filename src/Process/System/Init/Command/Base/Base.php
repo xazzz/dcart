@@ -18,12 +18,13 @@ class Base extends Command implements ICommand
     public function __construct()
     {
 
-        $this->_id = "process.system.dashboard.command.base";
+        $this->_id = "process.system.init.command.base";
         $this->_version = 1.0;
         $this->_author = "Tom";
         $this->_certificate = null;
 
         $this->_startTime = time ();
+        $this->_themePath = "process/system/init/command/base";
 
         self::$_core = Core::getInstance();
         self::$_actionQueue = self::$_core->newQueue($this->_id . ".action");

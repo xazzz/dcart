@@ -30,6 +30,9 @@ class Command extends Process
     protected $_startTime;
     protected $_terminateTime;
 
+    protected $_themePath;
+    protected $_themeUrl;
+
     protected static $_core;
     protected static $_actionQueue;
     protected static $_dataflowQueue;
