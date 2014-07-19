@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<api>
+    <author>Tom</author>
+    <version>0.1</version>
+    <date>2014-05-19</date>
+    <hook>
+        <type>{action|filter}</type>
+        <name></name>
+        <parameters>
+            <parameter>
+                <name></name>
+                <type></type>
+                <default></default>
+                <description></description>
+            </parameter>
+        </parameters>
+        <return>
+            <result>
+                <type></type>
+                <value></value>
+                <description></description>
+            </result>
+            <result>
+                <type></type>
+                <value></value>
+                <description></description>
+            </result>
+        </return>
+    </hook>
+
+</api>
